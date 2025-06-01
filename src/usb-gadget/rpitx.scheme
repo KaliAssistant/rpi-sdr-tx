@@ -1,0 +1,34 @@
+attrs = {
+    idVendor = 0x1D6B;
+    idProduct = 0x4C5B;
+}
+strings = (
+    {
+        lang = 0x409;
+        manufacturer = "KALIASSISTANT";
+        product = "RPI-TX rpi02w SDR";
+        serialnumber = "85298A2AD19E4B67AC3DE796446539A5"
+    }
+)
+functions = {
+    ecm_usb0 = {
+        instance = "usb0";
+        type = "ecm";
+        attrs = {
+            dev_addr = "42:61:64:55:53:42"
+        }
+    }
+}
+
+configs = (
+    {
+        id = 1;
+        name = "c";
+        functions = (
+            {
+                name = "ecm.usb0"
+                function = "ecm_usb0"
+            }
+        )
+    }
+)
