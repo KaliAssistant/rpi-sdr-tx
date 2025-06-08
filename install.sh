@@ -4,21 +4,21 @@ REPO_PWD=`pwd`
 
 do_init() {
     
-echo "    ____  ____  ____    _____ ____  ____      _______  __ ";
-echo "   / __ \/ __ \/  _/   / ___// __ \/ __ \    /_  __| |/ / ";
-echo "  / /_/ / /_/ // ______\__ \/ / / / /_/ ______/ /  |   /  ";
-echo " / _, _/ _____/ /________/ / /_/ / _, _/_____/ /  /   |   ";
-echo "/_/ |_/_/   /___/    /____/_____/_/ |_|     /_/  /_/|_|   ";
-echo "                                                          ";
-echo "--- Raspberry Pi Software Defined Radio * Transmit * ---\n";
+echo -e "    ____  ____  ____    _____ ____  ____      _______  __ ";
+echo -e "   / __ \/ __ \/  _/   / ___// __ \/ __ \    /_  __| |/ / ";
+echo -e "  / /_/ / /_/ // ______\__ \/ / / / /_/ ______/ /  |   /  ";
+echo -e " / _, _/ _____/ /________/ / /_/ / _, _/_____/ /  /   |   ";
+echo -e "/_/ |_/_/   /___/    /____/_____/_/ |_|     /_/  /_/|_|   ";
+echo -e "                                                          ";
+echo -e "--- Raspberry Pi Software Defined Radio * Transmit * ---\n";
 
-echo "Version 1.0 By KaliAssistant <work.kaliassistant.github@gmail.com>\n";
-echo "Thanks to F5OEO, linux-usb-gadgets, Mike McCauley, benhoyt";
-echo "rpitx   - https://github.com/F5OEO/rpitx";
-echo "gt      - https://github.com/linux-usb-gadgets/gt";
-echo "bcm2835 - https://www.airspayce.com/mikem/bcm2835";
-echo "inih    - https://github.com/benhoyt/inih";
-echo "\n[INFO] Start Installation, need internet connection.";
+echo -e "Version 1.0 By KaliAssistant <work.kaliassistant.github@gmail.com>\n";
+echo -e "Thanks to F5OEO, linux-usb-gadgets, Mike McCauley, benhoyt";
+echo -e "rpitx   - https://github.com/F5OEO/rpitx";
+echo -e "gt      - https://github.com/linux-usb-gadgets/gt";
+echo -e "bcm2835 - https://www.airspayce.com/mikem/bcm2835";
+echo -e "inih    - https://github.com/benhoyt/inih";
+echo -e "\n[INFO] Start Installation, need internet connection.";
 }
 
 do_failexit() {
@@ -41,8 +41,7 @@ do_git_submodule_update() {
 do_install_rpitx() {
     echo "[INFO] Build and install rpitx"
     cd "$REPO_PWD"/rpitx || do_failexit
-    make || do_failexit
-    sudo make install || do_failexit
+    ./install.sh
 }
 
 do_install_ws2812rpi_spi() {
