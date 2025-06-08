@@ -89,6 +89,7 @@ do_enable_systemd_service() {
     cd "$REPO_PWD"/src/systemd || do_failexit
     sudo cp ./rpi-gentmpfs.sh /usr/local/bin || do_failexit
     sudo cp ./mnt-rpisdrtx.mount ./rpisdrtx-gentmpfs.service ./rpisdrtx-mktmpdir.service ./rpisdrtx-ws2812rpi_spi.service ./rpisdrtx-usb-gadget.service /etc/systemd/system || do_failexit
+    sudo systemctl daemon-reload || do_failexit
     sudo systemctl enable mnt-rpisdrtx.mount rpisdrtx-gentmpfs.service rpisdrtx-mktmpdir.service rpisdrtx-ws2812rpi_spi.service rpisdrtx-usb-gadget.service || do_failexit
 }
 
