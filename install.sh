@@ -14,10 +14,11 @@ echo -e "--- Raspberry Pi Software Defined Radio * Transmit * ---\n";
 
 echo -e "Version 1.0 By KaliAssistant <work.kaliassistant.github@gmail.com>\n";
 echo -e "Thanks to F5OEO, linux-usb-gadgets, Mike McCauley, benhoyt";
-echo -e "rpitx   - https://github.com/F5OEO/rpitx";
-echo -e "gt      - https://github.com/linux-usb-gadgets/gt";
-echo -e "bcm2835 - https://www.airspayce.com/mikem/bcm2835";
-echo -e "inih    - https://github.com/benhoyt/inih";
+echo -e "rpitx      - https://github.com/F5OEO/rpitx";
+echo -e "libusbgx   - https://github.com/linux-usb-gadgets/libusbgx"
+echo -e "gt         - https://github.com/linux-usb-gadgets/gt";
+echo -e "bcm2835    - https://www.airspayce.com/mikem/bcm2835";
+echo -e "inih       - https://github.com/benhoyt/inih";
 echo -e "\n[INFO] Start Installation, need internet connection.";
 }
 
@@ -29,7 +30,7 @@ do_failexit() {
 do_apt_update() {
     echo "[INFO] Update APT && Install packages"
     sudo apt update || do_failexit
-    sudo apt install -y git bc cmake pkg-config libconfig-dev libusbgx-dev || do_failexit
+    sudo apt install -y git bc cmake pkg-config libconfig-dev autoconf m4 libtool || do_failexit
 }
 
 do_git_submodule_update() {
@@ -49,6 +50,14 @@ do_install_ws2812rpi_spi() {
     cd "$REPO_PWD"/ws2812rpi_spi || do_failexit
     ./build.sh || do_failexit
     sudo cp ./bin/ws2812rpi_spi ./bin/ws2812rpi_pipe /usr/local/bin || do_failexit
+}
+
+do_install_libusbgx() {
+    echo "[INFO] Build and install libusbgx(patch)"
+    cd "$REPO_PWD"/libusbgx || do_failexit
+    autoreconf -i || do_failexit
+    ./configure || do_failexit
+    make && sudo make install || do_failexit
 }
 
 do_install_gt() {

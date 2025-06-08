@@ -7,3 +7,6 @@
 [submodule "gt"]
 	path = gt
 	url = https://github.com/linux-usb-gadgets/gt
+[submodule "libusbgx"]
+	path = libusbgx
+	url = https://github.com/linux-usb-gadgets/libusbgx
