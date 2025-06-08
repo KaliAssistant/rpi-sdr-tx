@@ -1,0 +1,13 @@
+[Unit]
+Description=Load rpi-sdr-tx USB gadget scheme
+Requires=sys-kernel-config.mount
+After=sys-kernel-config.mount
+
+[Service]
+ExecStart=/usr/local/bin/gt load /usr/local/share/gt/rpi-sdr-tx.scheme g1
+RemainAfterExit=yes
+ExecStop=/usr/local/bin/gt rm -rf g1
+Type=simple
+
+[Install]
+WantedBy=usb-gadget.target

@@ -4,3 +4,6 @@
 [submodule "ws2812rpi_spi"]
 	path = ws2812rpi_spi
 	url = https://github.com/KaliAssistant/ws2812rpi_spi
+[submodule "gt"]
+	path = gt
+	url = https://github.com/linux-usb-gadgets/gt

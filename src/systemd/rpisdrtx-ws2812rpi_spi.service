@@ -1,0 +1,11 @@
+[Unit]
+Description=rpi-sdr-tx ws2812b neopixel spi control service
+After=rpisdrtx-gentmpfs.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/ws2812rpi_spi
+
+[Install]
+WantedBy=multi-user.target
+
