@@ -56,6 +56,7 @@ do_install_libusbgx() {
     echo "[INFO] Build and install libusbgx(patch)"
     cd "$REPO_PWD"/libusbgx || do_failexit
     autoreconf -i || do_failexit
+    libtoolize || do_failexit
     ./configure || do_failexit
     make && sudo make install || do_failexit
 }
