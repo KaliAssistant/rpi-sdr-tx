@@ -55,9 +55,14 @@ do_install_ws2812rpi_spi() {
 do_install_libusbgx() {
     echo "[INFO] Build and install libusbgx(patch)"
     cd "$REPO_PWD"/libusbgx || do_failexit
-    autoreconf -i || do_failexit
-    libtoolize || do_failexit
+    
+    # autoreconf -i # automake issues: https://github.com/libvips/libvips/issues/305#issuecomment-111844678
+    aclocal || do_failexit
+    autoconf || do_failexit
+    libtoolize --copy --force --automake || do_failexit
+    automake --add-missing --copy || do_failexit
     ./configure || do_failexit
+
     make && sudo make install || do_failexit
 }
 
