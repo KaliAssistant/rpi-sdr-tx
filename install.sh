@@ -113,7 +113,7 @@ do_nmcli_add_usb_conn() {
 
 do_modify_boot_cmdline_config() {
     echo -e "\e[0;32m[INFO]\e[1;37m Modify cmdline and config.txt to enable usb-gadget\e[0m"
-    echo "\n"
+    echo -e "\n"
     echo -ne "\e[1;33m[WARN]\e[0;33m To enable usb-gadget, rpi-sdr-tx need to modify /boot/firmware/config.txt and /boot/firmware/cmdline.txt. Are you sure (y/n) \e[0m"
     read -r USERINPUT
     if [ "$USERINPUT" = "y" ]; then
@@ -133,8 +133,16 @@ do_modify_boot_cmdline_config() {
 }
 
 do_finish_install() {
+    sudo ldconfig # update ld cache for gt
     echo -e "\e[0;32m[INFO]\e[1;37m Installation completed. You should reboot now.\e[0m"
     echo -e "\e[1;36m[NOTE]\e[0;36m Add address 172.16.48.254/24, no gateway (or self 172.16.48.254) to your computer, you should can ssh to the rpi-sdr-tx via USB. Enjoy!\e[0m"
+    echo -ne "\e[1;33m[WARN]\e[0;33m You should reboot to apply settings. Reboot now? (y/n)\e[0m"
+    read -r USERREBOOT
+    if [ "$USERREBOOT" = "y" ]; then
+        sudo sync && sudo init 6
+    else
+        echo -e "\e[0;32m[INFO]\e[1;37m Done."
+    fi
 }
 
 
