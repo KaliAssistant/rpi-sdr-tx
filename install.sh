@@ -127,6 +127,7 @@ do_apt_update
 do_git_submodule_update
 do_install_rpitx
 do_install_ws2812rpi_spi
+do_install_libusbgx
 do_install_gt
 do_enable_systemd_service
 do_modify_nm_udev_rules
