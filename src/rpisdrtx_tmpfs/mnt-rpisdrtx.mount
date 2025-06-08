@@ -1,0 +1,15 @@
+[Unit]
+Description=Mount rpi-sdr-tx tmpfs at /mnt/rpisdrtx
+DefaultDependencies=no
+After=rpisdrtx-mktmpdir.service
+Requires=rpisdrtx-mktmpdir.service
+
+[Mount]
+What=tmpfs
+Where=/mnt/rpisdrtx
+Type=tmpfs
+Options=size=10M,mode=0755
+
+[Install]
+WantedBy=multi-user.target
+

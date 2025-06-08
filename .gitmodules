@@ -1,0 +1,6 @@
+[submodule "rpitx"]
+	path = rpitx
+	url = https://github.com/F5OEO/rpitx
+[submodule "ws2812rpi_spi"]
+	path = ws2812rpi_spi
+	url = https://github.com/KaliAssistant/ws2812rpi_spi

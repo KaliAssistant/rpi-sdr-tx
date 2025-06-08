@@ -1,0 +1,14 @@
+[Unit]
+Description=Generate rpi-sdr-tx tmpfs to /mnt/rpisdrtx
+After=mnt-rpisdrtx.mount
+Requires=mnt-rpisdrtx.mount
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/rpi-gentmpfs.sh start
+ExecStop=/usr/local/bin/rpi-gentmpfs.sh stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+

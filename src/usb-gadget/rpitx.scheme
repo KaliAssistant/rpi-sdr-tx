@@ -1,0 +1,56 @@
+attrs :
+{
+    bcdUSB = 0x200;
+    idVendor = 0x1D6B;
+    idProduct = 0x4C5B;
+};
+os_descs :
+{
+    use = 1;
+    qw_sign = "MSFT100";
+    b_vendor_code = 0xcd;
+};
+
+strings = (
+    {
+        lang = 0x409;
+        manufacturer = "KALIASSISTANT";
+        product = "RPI-SDR-TX V1.0 Model 02WSC";
+        serialnumber = "85298A2AD19E4B67AC3DE796446539A5";
+    }
+);
+functions :
+{
+    rndis_usb0 : 
+    {
+        instance = "usb0";
+        type = "rndis";
+        os_descs = (
+            {
+                interface = "rndis";
+                compatible_id = "RNDIS";
+                sub_compatible_id = "5162001";
+            });
+        attrs :
+        {
+            dev_addr = "42:61:64:55:53:42";
+            host_addr = "48:6f:73:74:50:43";
+        };
+    };
+};
+
+configs = (
+    {
+        id = 1;
+        name = "c";
+        attrs :
+        {
+            bmAttributes = 0x80;
+            bMaxPower = 250;
+        };
+        functions = (
+            {
+                name = "rndis.usb0";
+                function = "rndis_usb0";
+            });
+    } );

@@ -1,0 +1,15 @@
+[Unit]
+Description=Ensure /mnt/rpisdrtx directory exists
+DefaultDependencies=no
+After=local-fs.target
+Before=mnt-rpisdrtx.mount
+
+
+[Service]
+Type=oneshot
+ExecStart=/bin/mkdir -p /mnt/rpisdrtx
+RemainAfterExit=true
+
+[Install]
+WantedBy=mnt-rpisdrtx.mount
+
