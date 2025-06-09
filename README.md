@@ -6,20 +6,21 @@ Raspberry Pi Soft Defined Radio for Trasmit
   
 <img src="./doc/IMG_6132.JPG.modified.jpeg"> 
 <img src="./doc/IMG_6133.JPG.modified.jpeg">
-<img src="./doc/IMG_6143.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_6144.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_6145.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_6146.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_6149.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_6150.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_6151.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_6152.JPG.modified.jpeg" width="400">
+
+<img src="./doc/IMG_6143.JPG.modified.jpeg" width="500"> <img src="./doc/IMG_6144.JPG.modified.jpeg" width="500">
+
+<img src="./doc/IMG_6145.JPG.modified.jpeg" width="500"> <img src="./doc/IMG_6146.JPG.modified.jpeg" width="500">
+
+<img src="./doc/IMG_6149.JPG.modified.jpeg" width="500"> <img src="./doc/IMG_6150.JPG.modified.jpeg" width="500">
+
+<img src="./doc/IMG_6151.JPG.modified.jpeg" width="500"> <img src="./doc/IMG_6152.JPG.modified.jpeg" width="500">
+
 <img src="./doc/IMG_6153.JPG.modified.jpeg">
 <img src="./doc/IMG_E6198.JPG.modified.jpeg">
-<img src="./doc/IMG_E6199.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_E6200.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_E6201.JPG.modified.jpeg" width="400">
-<img src="./doc/IMG_E6202.JPG.modified.jpeg" width="400">
+
+<img src="./doc/IMG_E6199.JPG.modified.jpeg" width="500"> <img src="./doc/IMG_E6200.JPG.modified.jpeg" width="500">
+
+<img src="./doc/IMG_E6201.JPG.modified.jpeg" width="500"> <img src="./doc/IMG_E6202.JPG.modified.jpeg" width="500">
 
 ### Cirucit
 ![](./doc/RPI-SDR-TX.svg)
