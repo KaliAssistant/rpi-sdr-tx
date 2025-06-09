@@ -42,7 +42,9 @@ Raspberry Pi Soft Defined Radio for Trasmit
 
 ## Install 
 1. Burn Raspbian Bookworm Lite __armhf (32bit)__ to SD card, the rpitx only support 32 bit now. Remember Add your wifi connection config, we need ssh to pi after boot.
+
 ![](./doc/2025-06-09_21-12-25.png)
+
 2. Run `sudo apt update && sudo apt -y full-upgrade` and reboot again.
 
 3. Install git `sudo apt install git` and clone this repository `git clone https://github.com/KaliAssistant/rpi-sdr-tx.git`
