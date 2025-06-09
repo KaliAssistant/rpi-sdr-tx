@@ -53,4 +53,9 @@ Raspberry Pi Soft Defined Radio for Trasmit
 6. When installation completed, script will reboot device, you will see RNDIS ethernet on your NetworkManager. just add `172.16.48.254/24` with no gateway to your computer NetworkManager, and you can `ssh <user>@172.16.48.1` via RNDIS/USB-ETHERNET to your pi. Now you can run rpitx or anything else with your rpi-sdr-tx.
 
 #### Install speedrun
-<video src="./doc/INSTALL_SPEEDRUN.MP4" controls></video>
+
+https://github.com/user-attachments/assets/191871f1-86b6-43fb-9782-dcf97c5af731
+
+
+
+
