@@ -32,7 +32,7 @@ do_failexit() {
 do_apt_update() {
     echo -e "\e[0;32m[INFO]\e[1;37m Update APT && Install packages\e[0m"
     sudo apt update || do_failexit
-    sudo apt install -y git bc cmake pkg-config libconfig-dev autoconf m4 libtool || do_failexit
+    sudo apt install -y git bc cmake pkg-config libconfig-dev autoconf m4 libtool ffmpeg sox libsox-dev libsox-fmt-all || do_failexit
 }
 
 do_git_submodule_update() {
