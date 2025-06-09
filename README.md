@@ -1,5 +1,5 @@
 # rpi-sdr-tx
-Raspberry Pi Soft Defined Radio for Trasmit
+Raspberry Pi Software Defined Radio for Trasmit
 
 ## Assembly
 - Raspberry pi zero 2w PCB
