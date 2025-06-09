@@ -1,5 +1,7 @@
 # GITHUB ========
 
+.hidden/
+.unused/
 
 # Apple =============
 .DS_Store
