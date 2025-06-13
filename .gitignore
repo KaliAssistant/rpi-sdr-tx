@@ -2,7 +2,7 @@
 
 .hidden/
 .unused/
-
+.release/
 # Apple =============
 .DS_Store
 .AppleDouble
