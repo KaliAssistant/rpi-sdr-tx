@@ -165,12 +165,12 @@ fi
 
 automake --add-missing --copy
 ./configure
-make && make install
+make -j $(nproc) && make install
 
 cd /usr/local/src/rpi-sdr-tx/gt/source
 mkdir build && cd build
 cmake ..
-make
+make -j $(nproc)
 make install
 
 cd /usr/local/src/rpi-sdr-tx/src/systemd
