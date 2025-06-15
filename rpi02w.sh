@@ -151,9 +151,9 @@ cd /usr/local/src/rpi-sdr-tx
 REPO_PWD=/usr/local/src/rpi-sdr-tx
 git submodule update --init
 cd /usr/local/src/rpi-sdr-tx/rpitx
-yes | ./install.sh
+./install.sh
 cd /usr/local/src/rpi-sdr-tx/ws2812rpi_spi
-./build.sh
+make -j $(nproc)
 cp ./bin/ws2812rpi_spi ./bin/ws2812rpi_pipe /usr/local/bin
 cd /usr/local/src/rpi-sdr-tx/libusbgx
 aclocal
