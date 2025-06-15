@@ -88,9 +88,9 @@ do_init_cleanup() {
     trash_xz_files=$(find "${REPO_PWD}/base" -name "*.xz")
     trash_img_files=$(find "${REPO_PWD}/base" -name "*.img")
 
-    [ ! -n "$trash_chksum_files" ] || rm -f "${REPO_PWD}/base/*.sha256sum"
-    [ ! -n "$trash_xz_files" ] || rm -f "${REPO_PWD}/base/*.xz"
-    [ ! -n "$trash_img_files" ] || rm -f "${REPO_PWD}/base/*.img"
+    [ ! -n "$trash_chksum_files" ] || rm -f "$trash_chksum_files"
+    [ ! -n "$trash_xz_files" ] || rm -f "$trash_xz_files"
+    [ ! -n "$trash_img_files" ] || rm -f "$trash_img_files"
     
     [ ! -f "$RASPBIAN_DOWNLOADED_IMAGE" ] || rm -f "$RASPBIAN_DOWNLOADED_IMAGE"
 }
@@ -324,9 +324,9 @@ do_done_cleanup() {
     trash_xz_files=$(find "${REPO_PWD}/base" -name "*.xz")
     trash_img_files=$(find "${REPO_PWD}/base" -name "*.img")
 
-    [ ! -n "$trash_chksum_files" ] || rm -f "${REPO_PWD}/base/*.sha256sum"
-    [ ! -n "$trash_xz_files" ] || rm -f "${REPO_PWD}/base/*.xz"
-    [ ! -n "$trash_img_files" ] || rm -f "${REPO_PWD}/base/*.img"
+    [ ! -n "$trash_chksum_files" ] || rm -f "$trash_chksum_files"
+    [ ! -n "$trash_xz_files" ] || rm -f "$trash_xz_files"
+    [ ! -n "$trash_img_files" ] || rm -f "$trash_img_files"
 }
 
 do_init
