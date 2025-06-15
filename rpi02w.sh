@@ -11,6 +11,11 @@ RASPBIAN_DOWNLOAD_GPG_PBKEY="${REPO_PWD}/img_sig/54c3dd610d9d1b4af82a37758738cd6
 RASPBIAN_DOWNLOADED_IMAGE="${REPO_PWD}/downloads/raspios-bookworm-armhf-lite.img.xz"
 
 
+if [ "$EUID" -ne 0 ]
+  then echo -e "\e[1;31m[ABORT] Please run as root !\e[0m"
+  exit 1
+fi
+
 do_trap_cleanup() {
     # Always try to finish cleanup even if something fails
     set +eE
