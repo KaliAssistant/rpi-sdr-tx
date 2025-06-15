@@ -50,7 +50,7 @@ do_install_rpitx() {
 do_install_ws2812rpi_spi() {
     echo -e "\e[0;32m[INFO]\e[1;37m Build and install ws2812rpi_spi\e[0m"
     cd "$REPO_PWD"/ws2812rpi_spi || do_failexit
-    ./build.sh || do_failexit
+    make -j $(nproc) || do_failexit
     sudo cp ./bin/ws2812rpi_spi ./bin/ws2812rpi_pipe /usr/local/bin || do_failexit
 }
 
