@@ -77,6 +77,19 @@ echo -e "\e[0;36m inih       -\e[0;34m https://github.com/benhoyt/inih\e[0m";
 echo -e "\n\e[0;32m[INFO]\e[1;37m Start Build script, need internet connection.\e[0m";
 }
 
+do_init_cleanup() {
+    echo -e "\e[0;32m[INFO]\e[1;37m Init cleanup...\e[0m"
+    trash_chksum_files=$(find "${REPO_PWD}/base" -name "*.sha256sum")
+    trash_xz_files=$(find "${REPO_PWD}/base" -name "*.xz")
+    trash_img_files=$(find "${REPO_PWD}/base" -name "*.img")
+
+    [ ! -n "$trash_chksum_files" ] || rm -f "${REPO_PWD}/base/*.sha256sum"
+    [ ! -n "$trash_xz_files" ] || rm -f "${REPO_PWD}/base/*.xz"
+    [ ! -n "$trash_img_files" ] || rm -f "${REPO_PWD}/base/*.img"
+    
+    [ ! -f "$RASPBIAN_DOWNLOADED_IMAGE" ] || rm -f "$RASPBIAN_DOWNLOADED_IMAGE"
+}
+
 
 do_apt_update() {
     echo -e "\e[0;32m[INFO]\e[1;37m Update APT && Install packages\e[0m"
@@ -146,34 +159,35 @@ set -e
 apt update && apt -y upgrade
 apt install -y git bc cmake pkg-config libconfig-dev autoconf m4 libtool ffmpeg sox libsox-dev libsox-fmt-all uuid-runtime
 
-git clone https://github.com/KaliAssistant/rpi-sdr-tx.git -b dev /usr/local/src/rpi-sdr-tx
-cd /usr/local/src/rpi-sdr-tx
-REPO_PWD=/usr/local/src/rpi-sdr-tx
+REPO_PWD="/usr/local/src/rpi-sdr-tx"
+
+git clone https://github.com/KaliAssistant/rpi-sdr-tx.git -b dev "$REPO_PWD"
+cd "$REPO_PWD"
 git submodule update --init
-cd /usr/local/src/rpi-sdr-tx/rpitx
+cd "${REPO_PWD}/rpitx"
 ./install.sh
-cd /usr/local/src/rpi-sdr-tx/ws2812rpi_spi
+cd "${REPO_PWD}/ws2812rpi_spi"
 make -j $(nproc)
 cp ./bin/ws2812rpi_spi ./bin/ws2812rpi_pipe /usr/local/bin
-cd /usr/local/src/rpi-sdr-tx/libusbgx
+cd "${REPO_PWD}/libusbgx"
 aclocal
 autoconf
 libtoolize --copy --force --automake
-if [ -f /usr/local/src/rpi-sdr-tx/ltmain.sh ] && [ ! -f ltmain.sh ]; then
-    mv /usr/local/src/rpi-sdr-tx/ltmain.sh .
+if [ -f "${REPO_PWD}/ltmain.sh" ] && [ ! -f ltmain.sh ]; then
+    mv "${REPO_PWD}/ltmain.sh" .
 fi
 
 automake --add-missing --copy
 ./configure
 make -j $(nproc) && make install
 
-cd /usr/local/src/rpi-sdr-tx/gt/source
+cd "${REPO_PWD}/gt/source"
 mkdir build && cd build
 cmake ..
 make -j $(nproc)
 make install
 
-cd /usr/local/src/rpi-sdr-tx/src/systemd
+cd "${REPO_PWD}/src/systemd"
 cp ./rpi-gentmpfs.sh /usr/local/bin
 cp ./mnt-rpisdrtx.mount ./rpisdrtx-gentmpfs.service ./rpisdrtx-mktmpdir.service ./rpisdrtx-ws2812rpi_spi.service ./rpisdrtx-usb-gadget.service /etc/systemd/system
 
@@ -181,14 +195,14 @@ systemctl enable mnt-rpisdrtx.mount rpisdrtx-gentmpfs.service rpisdrtx-mktmpdir.
 
 sed -i '/ENV{DEVTYPE}=="gadget", *ENV{NM_UNMANAGED}="1"/s/^/# /' /usr/lib/udev/rules.d/85-nm-unmanaged.rules
 
-cd /usr/local/src/rpi-sdr-tx/src/usb-gadget
+cd "${REPO_PWD}/src/usb-gadget"
 
 SERIAL="00000000000000000000000000000000"
 
 sed -i "s/serialnumber = \".*\";/serialnumber = \"${SERIAL}\";/" rpi-sdr-tx.scheme
 
 mkdir -p /usr/local/share/gt && sudo cp rpi-sdr-tx.scheme /usr/local/share/gt
-cd /usr/local/src/rpi-sdr-tx/src/conf.d
+cd "${REPO_PWD}/src/conf.d"
 cp ws2812rpi_spi.conf /etc
 
 
@@ -225,6 +239,8 @@ EOF
     echo -e "\e[0;32m[INFO]\e[1;37m Run install script in chroot...\e[0m"
 
     chroot "$work_dir" /bin/bash -c "/bin/bash /opt/install_rpisdrtx.sh"
+
+    chroot "$work_dir" /bin/bash -c "/bin/rm -f /opt/install_rpisdrtx.sh"
 
     echo -e "\e[0;32m[INFO]\e[1;37m Build success! cleanup and umount img file...\e[0m"
 
@@ -298,12 +314,24 @@ do_xz_compress() {
     echo -e "\e[0;32m[INFO]\e[1;37m All done! Your image is ${REPO_PWD}/build-image/${img_name}  Have a nice day!\e[0m"
 }
 
+do_done_cleanup() {
+    trash_chksum_files=$(find "${REPO_PWD}/base" -name "*.sha256sum")
+    trash_xz_files=$(find "${REPO_PWD}/base" -name "*.xz")
+    trash_img_files=$(find "${REPO_PWD}/base" -name "*.img")
+
+    [ ! -n "$trash_chksum_files" ] || rm -f "${REPO_PWD}/base/*.sha256sum"
+    [ ! -n "$trash_xz_files" ] || rm -f "${REPO_PWD}/base/*.xz"
+    [ ! -n "$trash_img_files" ] || rm -f "${REPO_PWD}/base/*.img"
+}
+
 do_init
+do_init_cleanup
 do_apt_update
 do_download_raspbian
 do_resize_img_file
 do_chroot_to_working
 do_minsize_imgfile
 do_xz_compress
+do_done_cleanup
 exit 0
 
