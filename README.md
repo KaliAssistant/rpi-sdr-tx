@@ -89,3 +89,11 @@ If you want self build your image file, you can switch to __builder__ branch.
 
 7. RaspberryPi zero 2w first boot will auto resize SD card part2 and rootfs, so it will reboot again. If you have not add wifi settings, remember add `172.16.48.254` with no gateway (or self) to your computer NetworkManager, and than you can ssh to pi via USB RNDIS/ethernet.
 
+ https://github.com/user-attachments/assets/2d748ec5-55ba-4309-807d-750ab2e99dc4
+
+ #### Build speedrun
+
+https://github.com/user-attachments/assets/50063fa5-2c4f-4648-95dc-c4b67a2b611c
+
+
+
