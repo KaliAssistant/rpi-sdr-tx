@@ -59,6 +59,33 @@ Raspberry Pi Software Defined Radio for Trasmit
 
 https://github.com/user-attachments/assets/191871f1-86b6-43fb-9782-dcf97c5af731
 
+## Build rpi-sdr-tx image
+If you want self build your image file, you can switch to __builder__ branch.
+
+1. Create a __debian / Ubuntu / kali (debian based)__ VM or Docker for build environment. I am using VMware.
+
+2. Clone this repository builder branch `git clone https://github.com/Kaliassistant/rpi-sdr-tx.git -b builder`
+
+![](./doc/Frame-04029.png)
 
 
+3. cd to repository `cd rpi-sdr-tx` and run `./rpi02w.sh` as __root__ , script will auto update and download packages
+
+![](./doc/Frame-08963.png)
+
+4. Scripts may take up to ~1 hour to complete. ☕ Grab a coffee (or anything)
+
+5. If build success, the build images and checksum all in the `./build-image/`
+
+![](./doc/Shotcut_00_00_04_000.jpg)
+
+6. Use __rpi-imager (recommend)__ or __balenaEther__ to burn the build image. If you are using rpi-imager, you can change your username, password, wifi settings, ssh...etc.
+
+![](./doc/2025-06-15_10-09-49.png)
+
+![](./doc/2025-06-15_10-10-14.png)
+
+![](./doc/2025-06-15_10-10-35.png)
+
+7. RaspberryPi zero 2w first boot will auto resize SD card part2 and rootfs, so it will reboot again. If you have not add wifi settings, remember add `172.16.48.254` with no gateway (or self) to your computer NetworkManager, and than you can ssh to pi via USB RNDIS/ethernet.
 
