@@ -3,10 +3,10 @@
 	url = https://github.com/KaliAssistant/ws2812rpi_spi
 [submodule "gt"]
 	path = gt
-	url = https://github.com/linux-usb-gadgets/gt
+	url = https://github.com/KaliAssistant/gt.git
 [submodule "libusbgx"]
 	path = libusbgx
-	url = https://github.com/linux-usb-gadgets/libusbgx
+	url = https://github.com/KaliAssistant/libusbgx.git
 [submodule "rpitx"]
 	path = rpitx
 	url = https://github.com/KaliAssistant/rpitx
