@@ -33,9 +33,6 @@ do_trap_cleanup() {
         if mountpoint -q "$work_dir/$mp"; then
             umount -lf "$work_dir/$mp" 2>/dev/null || true
         fi
-        if mountpoint -q "$work_dir"; then
-            umount -lf "$work_dir" 2>/dev/null || true
-        fi
     done
     loop_device="$(losetup -j "${REPO_PWD}/base/base_image.img" | cut -d':' -f1)"
     if [ -n "$loop_device" ]; then
@@ -55,9 +52,6 @@ do_fail_cleanup() {
     for mp in dev/pts dev sys proc boot/firmware ''; do
         if mountpoint -q "$work_dir/$mp"; then
             umount -lf "$work_dir/$mp" 2>/dev/null || true
-        fi
-        if mountpoint -q "$work_dir"; then
-            umount -lf "$work_dir" 2>/dev/null || true
         fi
     done
     loop_device="$(losetup -j "${REPO_PWD}/base/base_image.img" | cut -d':' -f1)"
@@ -285,7 +279,6 @@ EOF
     echo -e "\e[0;32m[INFO]\e[1;37m Build success! cleanup and umount img file...\e[0m"
 
     umount "$work_dir"/{dev/pts,dev,sys,proc,boot/firmware,}
-    umount "$work_dir"
     losetup -d "$loop_device"
 }
 
