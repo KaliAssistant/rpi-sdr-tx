@@ -3,6 +3,8 @@
 .hidden/
 .unused/
 .release/
+builder.txt
+
 # Apple =============
 .DS_Store
 .AppleDouble
