@@ -1,0 +1,20 @@
+# Your USB gadget serialnumber
+usb_serial="00000000000000000000000000000000"
+
+# Free space added to the rootfs in MiB
+free_space=100
+
+# USB gadget RNDIS ETHERNET settings
+rndis_ipv4_address="172.16.48.1/24"
+rndis_ipv4_gateway="172.16.48.254"
+rndis_ipv4_dns="1.1.1.1"
+
+# If you have your own preferred mirrors, set them here.
+#mirror="http://raspbian.raspberrypi.com/raspbian"
+
+#suite="bookworm"
+
+# Use packages from the listed components of the archive.
+#components="bookworm main contrib non-free rpi"
+
+

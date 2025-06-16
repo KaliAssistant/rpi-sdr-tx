@@ -95,6 +95,9 @@ do_init_cleanup() {
     [ ! -f "$RASPBIAN_DOWNLOADED_IMAGE" ] || rm -f $RASPBIAN_DOWNLOADED_IMAGE
 }
 
+do_read_builder_txt() {
+    source "${REPO_PWD}/variables.sh"
+}
 
 do_apt_update() {
     echo -e "\e[0;32m[INFO]\e[1;37m Update APT && Install packages\e[0m"
@@ -157,9 +160,17 @@ do_chroot_to_working() {
 
     echo -e "\e[0;32m[INFO]\e[1;37m Generate rpi-sdr-tx install script to chroot...\e[0m"
 
+    cat <<EOF >"${work_dir}"/opt/install_rpisdrtx_var.sh
+usb_serial=${usb_serial}
+nm_addr1=${rndis_ipv4_address},${rndis_ipv4_gateway}
+nm_dns=${rndis_ipv4_dns}
+EOF
+
     cat << 'EOF' > "${work_dir}"/opt/install_rpisdrtx.sh
 #!/usr/bin/env bash
 set -e
+
+source /opt/install_rpisdrtx_var.sh
 
 apt update && apt -y upgrade
 apt install -y git bc cmake pkg-config libconfig-dev autoconf m4 libtool ffmpeg sox libsox-dev libsox-fmt-all uuid-runtime
@@ -202,7 +213,7 @@ sed -i '/ENV{DEVTYPE}=="gadget", *ENV{NM_UNMANAGED}="1"/s/^/# /' /usr/lib/udev/r
 
 cd "${REPO_PWD}/src/usb-gadget"
 
-SERIAL="00000000000000000000000000000000"
+SERIAL=${usb_serial}
 
 sed -i "s/serialnumber = \".*\";/serialnumber = \"${SERIAL}\";/" rpi-sdr-tx.scheme
 
@@ -221,8 +232,8 @@ interface-name=usb0
 autoconnect=true
 
 [ipv4]
-address1=172.16.48.1/24,172.16.48.254
-dns=1.1.1.1;
+address1=${nm_addr1}
+dns=${nm_dns};
 method=manual
 
 [ipv6]
@@ -240,12 +251,18 @@ grep -qF 'dtoverlay=dwc2,dr_mode=peripheral' /boot/firmware/config.txt || echo "
 ldconfig
 
 EOF
+    
+    cat <<EOF >"${work_dir}/etc/apt/sources.list"
+deb ${mirror} ${suite} ${components//,/ }
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src ${mirror} ${suite} ${components//,/ }
+EOF
 
     echo -e "\e[0;32m[INFO]\e[1;37m Run install script in chroot...\e[0m"
 
     chroot "$work_dir" /bin/bash -c "/bin/bash /opt/install_rpisdrtx.sh"
 
-    chroot "$work_dir" /bin/bash -c "/bin/rm -f /opt/install_rpisdrtx.sh"
+    chroot "$work_dir" /bin/bash -c "/bin/rm -f /opt/install_rpisdrtx.sh /opt/install_rpisdrtx_var.sh"
 
     echo -e "\e[0;32m[INFO]\e[1;37m Build success! cleanup and umount img file...\e[0m"
 
@@ -254,13 +271,13 @@ EOF
 }
 
 do_minsize_imgfile() {
-    echo -e "\e[0;32m[INFO]\e[1;37m Resize build imgage to Min+100M-Free...\e[0m"
+    echo -e "\e[0;32m[INFO]\e[1;37m Resize build imgage to MIN_SIZE\e[0m"
 
     loop_device=$(losetup -Pf --show "${REPO_PWD}/base/base_image.img")
     
     ROOT_PART="${loop_device}p2"
 
-    EXTRA_MB=100
+    EXTRA_MB=$((free_space))
     # Calculate minimum size
     MIN_SIZE=$(resize2fs -P "$ROOT_PART" | awk '{print $NF}')
     ADD_BLOCKS=$(( EXTRA_MB * 1024 * 1024 / 4096 ))
@@ -333,6 +350,7 @@ do_done_cleanup() {
 
 do_init
 do_init_cleanup
+do_read_builder_txt
 do_apt_update
 do_download_raspbian
 do_resize_img_file
