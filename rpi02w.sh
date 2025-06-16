@@ -1,13 +1,20 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 
 set -eE
 
+RPI_SDR_TX_VERSION="v1.0.0-beta1"
 REPO_PWD=`pwd`
 work_dir="${REPO_PWD}/base/working"
+
+# Use 2025-05-13 raspbian armhf lite
 RASPBIAN_DOWNLOAD_URL="https://downloads.raspberrypi.com/raspios_lite_armhf/images/raspios_lite_armhf-2025-05-13/2025-05-13-raspios-bookworm-armhf-lite.img.xz"
+
+# GPG signature
 RASPBIAN_DOWNLOAD_SIG="${REPO_PWD}/img_sig/2025-05-13-raspios-bookworm-armhf-lite.img.xz.sig"
+
+# raspberrypi official downloads gpg public key
 RASPBIAN_DOWNLOAD_GPG_PBKEY="${REPO_PWD}/img_sig/54c3dd610d9d1b4af82a37758738cd6b956f460c.asc"
+
 RASPBIAN_DOWNLOADED_IMAGE="${REPO_PWD}/downloads/raspios-bookworm-armhf-lite.img.xz"
 
 
@@ -25,6 +32,9 @@ do_trap_cleanup() {
     for mp in dev/pts dev sys proc boot/firmware ''; do
         if mountpoint -q "$work_dir/$mp"; then
             umount -lf "$work_dir/$mp" 2>/dev/null || true
+        fi
+        if mountpoint -q "$work_dir"; then
+            umount -lf "$work_dir" 2>/dev/null || true
         fi
     done
     loop_device="$(losetup -j "${REPO_PWD}/base/base_image.img" | cut -d':' -f1)"
@@ -45,6 +55,9 @@ do_fail_cleanup() {
     for mp in dev/pts dev sys proc boot/firmware ''; do
         if mountpoint -q "$work_dir/$mp"; then
             umount -lf "$work_dir/$mp" 2>/dev/null || true
+        fi
+        if mountpoint -q "$work_dir"; then
+            umount -lf "$work_dir" 2>/dev/null || true
         fi
     done
     loop_device="$(losetup -j "${REPO_PWD}/base/base_image.img" | cut -d':' -f1)"
@@ -103,6 +116,7 @@ do_apt_update() {
 }
 
 do_read_builder_txt() {
+    echo -e "\e[0;32m[INFO]\e[1;37m Read builder.txt and variables...\e[0m"
     source "${REPO_PWD}/variables.sh"
 }
 
@@ -160,14 +174,14 @@ do_chroot_to_working() {
     mount --bind /proc "${work_dir}/proc"
     mount --bind /dev/pts "${work_dir}/dev/pts"
 
-    echo -e "\e[0;32m[INFO]\e[1;37m Generate rpi-sdr-tx install script to chroot...\e[0m"
-
+    echo -e "\e[0;32m[INFO]\e[1;37m Generate rpi-sdr-tx install script variables to chroot...\e[0m"
     cat <<EOF >"${work_dir}"/opt/install_rpisdrtx_var.sh
 usb_serial=${usb_serial}
 nm_addr1=${rndis_ipv4_address},${rndis_ipv4_gateway}
 nm_dns=${rndis_ipv4_dns}
 EOF
 
+    echo -e "\e[0;32m[INFO]\e[1;37m Generate rpi-sdr-tx install script to chroot...\e[0m"
     cat << 'EOF' > "${work_dir}"/opt/install_rpisdrtx.sh
 #!/usr/bin/env bash
 set -e
@@ -254,6 +268,7 @@ ldconfig
 
 EOF
     
+    echo -e "\e[0;32m[INFO]\e[1;37m Replace apt source...\e[0m"
     cat <<EOF >"${work_dir}/etc/apt/sources.list"
 deb [ arch=armhf ] ${mirror} ${suite} ${components//,/ }
 # Uncomment line below then 'apt-get update' to enable 'apt-get source'
@@ -264,11 +279,13 @@ EOF
 
     chroot "$work_dir" /bin/bash -c "/bin/bash /opt/install_rpisdrtx.sh"
 
+    echo -e "\e[0;32m[INFO]\e[1;37m Remove chroot Install script...\e[0m"
     chroot "$work_dir" /bin/bash -c "/bin/rm -f /opt/install_rpisdrtx.sh /opt/install_rpisdrtx_var.sh"
 
     echo -e "\e[0;32m[INFO]\e[1;37m Build success! cleanup and umount img file...\e[0m"
 
     umount "$work_dir"/{dev/pts,dev,sys,proc,boot/firmware,}
+    umount "$work_dir"
     losetup -d "$loop_device"
 }
 

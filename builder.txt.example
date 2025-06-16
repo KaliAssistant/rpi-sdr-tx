@@ -1,7 +1,9 @@
 # Your USB gadget serialnumber
+# Random usb_serial if not set
 usb_serial="00000000000000000000000000000000"
 
 # Free space added to the rootfs in MiB
+# TODO: free_space set 100, but real free_space is ~500+100 MiB (xz will compress)
 free_space=100
 
 # USB gadget RNDIS ETHERNET settings
@@ -12,9 +14,9 @@ rndis_ipv4_dns="1.1.1.1"
 # If you have your own preferred mirrors, set them here.
 #mirror="http://raspbian.raspberrypi.com/raspbian"
 
+# Dont change this (stable)
 #suite="bookworm"
 
 # Use packages from the listed components of the archive.
-#components="bookworm main contrib non-free rpi"
-
+#components="main,contrib,non-free,rpi"
 
