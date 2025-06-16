@@ -79,6 +79,7 @@ do_install_ws2812rpi_spi() {
     cd "$REPO_PWD"/ws2812rpi_spi
     make -j $(nproc)
     cp ./bin/ws2812rpi_spi ./bin/ws2812rpi_pipe /usr/local/bin
+
 }
 
 do_install_libusbgx() {
