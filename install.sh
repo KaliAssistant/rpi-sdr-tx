@@ -3,7 +3,7 @@
 
 set -eE
 
-RPI_SDR_TX_VERSION="v1.0.0-beta1"
+RPI_SDR_TX_VERSION="v1.0.0"
 
 
 REPO_PWD=`pwd`
