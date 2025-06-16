@@ -1,5 +1,14 @@
 # rpi-sdr-tx
-Raspberry Pi Software Defined Radio for Trasmit
+#### Raspberry Pi Software Defined Radio for Trasmit
+
+## abuot rpi-sdr-tx
+
+**rpitx** is a general radio frequency transmitter for Raspberry Pi which doesn't require any other hardware unless filter to avoid intererence. It can handle frequencies from 5 KHz up to 1500 MHz.
+
+Rpitx is  a software made for educational on RF system. It has not been tested for compliance with regulations governing transmission of radio signals. You are responsible for using your Raspberry Pi legally.
+
+This repository **rpi-sdr-tx** is included **rpitx**, **usb-gadget**, **image build script**, **3DP cases** ...etc, the build image released on github. see [release](https://github.com/KaliAssistant/rpi-sdr-tx/releases)
+
 
 ## Assembly
 - Raspberry pi zero 2w PCB
@@ -69,17 +78,19 @@ If you want self build your image file, you can switch to __builder__ branch.
 ![](./doc/Frame-04029.png)
 
 
-3. cd to repository `cd rpi-sdr-tx` and run `./rpi02w.sh` as __root__ , script will auto update and download packages
+3. cd to repository `cd rpi-sdr-tx` and `cp ./builder.txt.example ./builder.txt` then modify `builder.txt` to change `mirror`, `usb_serial`... etc.
+
+4. run `./rpi02w.sh` as __root__ , script will auto update and download packages
 
 ![](./doc/Frame-08963.png)
 
-4. Scripts may take up to ~1 hour to complete. ☕ Grab a coffee (or anything)
+5. Scripts may take up to ~1 hour to complete. ☕ Grab a coffee (or anything)
 
-5. If build success, the build images and checksum all in the `./build-image/`
+6. If build success, the build images and checksum all in the `./build-image/`
 
 ![](./doc/Shotcut_00_00_04_000.jpg)
 
-6. Use __rpi-imager (recommend)__ or __balenaEther__ to burn the build image. If you are using rpi-imager, you can change your username, password, wifi settings, ssh...etc.
+7. Use __rpi-imager (recommend)__ or __balenaEther__ to burn the build image. If you are using rpi-imager, you can change your username, password, wifi settings, ssh...etc.
 
 ![](./doc/2025-06-15_10-09-49.png)
 
@@ -87,7 +98,7 @@ If you want self build your image file, you can switch to __builder__ branch.
 
 ![](./doc/2025-06-15_10-10-35.png)
 
-7. RaspberryPi zero 2w first boot will auto resize SD card part2 and rootfs, so it will reboot again. If you have not add wifi settings, remember add `172.16.48.254` with no gateway (or self) to your computer NetworkManager, and than you can ssh to pi via USB RNDIS/ethernet.
+8. RaspberryPi zero 2w first boot will auto resize SD card part2 and rootfs, so it will reboot again. If you have not add wifi settings, remember add `172.16.48.254` with no gateway (or self) to your computer NetworkManager, and than you can ssh to pi via USB RNDIS/ethernet.
  
 https://github.com/user-attachments/assets/7944fcf1-dfa4-4d31-8bf7-d2fa6b348df9
 
@@ -98,8 +109,8 @@ https://github.com/user-attachments/assets/0cf1e91f-3009-4e01-9d99-45d8bbc2cdbd
 
 
 ## Audio Test
-rpi-sdr-tx audio files test 
-##### FULL VIDEO ON YOUTUBE (VOLUME WARNING)
+#### rpi-sdr-tx audio files test 
+##### [FULL VIDEO ON YOUTUBE](https://www.youtube.com/watch?v=e7_sDhkGPY4) (VOLUME WARNING)
 [![FULL VIDEO](https://img.youtube.com/vi/e7_sDhkGPY4/0.jpg)](https://www.youtube.com/watch?v=e7_sDhkGPY4)
 
 
