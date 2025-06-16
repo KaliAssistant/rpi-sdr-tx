@@ -219,7 +219,7 @@ SERIAL=${usb_serial}
 
 sed -i "s/serialnumber = \".*\";/serialnumber = \"${SERIAL}\";/" rpi-sdr-tx.scheme
 
-mkdir -p /usr/local/share/gt && sudo cp rpi-sdr-tx.scheme /usr/local/share/gt
+mkdir -p /usr/local/share/gt && cp rpi-sdr-tx.scheme /usr/local/share/gt
 cd "${REPO_PWD}/src/conf.d"
 cp ws2812rpi_spi.conf /etc
 
@@ -255,7 +255,7 @@ ldconfig
 EOF
     
     cat <<EOF >"${work_dir}/etc/apt/sources.list"
-deb ${mirror} ${suite} ${components//,/ }
+deb [ arch=armhf ] ${mirror} ${suite} ${components//,/ }
 # Uncomment line below then 'apt-get update' to enable 'apt-get source'
 #deb-src ${mirror} ${suite} ${components//,/ }
 EOF
