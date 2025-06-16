@@ -95,15 +95,17 @@ do_init_cleanup() {
     [ ! -f "$RASPBIAN_DOWNLOADED_IMAGE" ] || rm -f $RASPBIAN_DOWNLOADED_IMAGE
 }
 
-do_read_builder_txt() {
-    source "${REPO_PWD}/variables.sh"
-}
 
 do_apt_update() {
     echo -e "\e[0;32m[INFO]\e[1;37m Update APT && Install packages\e[0m"
     apt update 
-    apt install -y git curl qemu-user qemu-user-static kpartx uuid-runtime pixz xz-utils
+    apt install -y git curl qemu-user qemu-user-static uuid-runtime pixz xz-utils xxd
 }
+
+do_read_builder_txt() {
+    source "${REPO_PWD}/variables.sh"
+}
+
 
 do_download_raspbian() {
     echo -e "\e[0;32m[INFO]\e[1;37m Download raspbian image\e[0m"
@@ -350,8 +352,8 @@ do_done_cleanup() {
 
 do_init
 do_init_cleanup
-do_read_builder_txt
 do_apt_update
+do_read_builder_txt
 do_download_raspbian
 do_resize_img_file
 do_chroot_to_working
