@@ -113,16 +113,30 @@ do_dect_download_exists() {
         verify_shasum=$(sha256sum "$RASPBIAN_DECOMPRESSED_IMAGE" | awk -F' ' '{print $1}')
         [ "$verify_shasum" == "$RASPBIAN_DECOMPRESSED_IMAGE_SHA256SUM" ] || EXIST_DIMAGE_ERR_CHKSUM="ERROR"
         if [ -n "$EXIST_DIMAGE_ERR_CHKSUM" ]; then
-            echo -e "\e[1;33m[WARN]\e[0;33m SHA256SUM NOT MATCH ! REDOWNLOAD THE IMAGE...\e[0m"
+            echo -e "\e[1;33m[WARN]\e[0;33m SHA256SUM NOT MATCH ! TRY COMPRESSED IMAGE...\e[0m"
+            if [ -f "$RASPBIAN_DOWNLOADED_IMAGE" ]; then
+                echo -e "\e[0;32m[INFO]\e[1;37m Found Downloaded image!\e[0m"
+                echo -e "\e[0;32m[INFO]\e[1;37m Verify Image...\e[0m"
+                gpg --import "$RASPBIAN_DOWNLOAD_GPG_PBKEY"
+                gpg --verify "$RASPBIAN_DOWNLOAD_SIG" "$RASPBIAN_DOWNLOADED_IMAGE" || EXIST_IMAGE_GPG_ERROR="ERROR"
+                if [ -n "$EXIST_IMAGE_GPG_ERROR" ]; then
+                    echo -e "\e[1;33m[WARN]\e[0;33m GPG VERIFY RETURN NON-ZERO EXIT-CODE ! REDOWNLOAD THE IMAGE...\e[0m"
+                    do_download_raspbian
+                    return 0
+                fi
+                echo -e "\e[0;32m[INFO]\e[1;37m Decompress image file to base...\e[0m"
+                xz -dk "$RASPBIAN_DOWNLOADED_IMAGE"
+                cp "$RASPBIAN_DECOMPRESSED_IMAGE" "$BASE_IMAGE"
+                return 0
+            fi
+            echo -e "\e[0;32m[INFO]\e[1;37m Image not found...\e[0m"
             do_download_raspbian
             return 0
         fi
-        
         echo -e "\e[0;32m[INFO]\e[1;37m Copy image file to base...\e[0m"
         cp "$RASPBIAN_DECOMPRESSED_IMAGE" "$BASE_IMAGE"
         return 0
         
-
     elif [ -f "$RASPBIAN_DOWNLOADED_IMAGE" ]; then
         echo -e "\e[0;32m[INFO]\e[1;37m Found Downloaded image!\e[0m"
         echo -e "\e[0;32m[INFO]\e[1;37m Verify Image...\e[0m"
