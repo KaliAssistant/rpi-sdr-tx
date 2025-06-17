@@ -100,7 +100,7 @@ do_download_raspbian() {
     gpg --import "$RASPBIAN_DOWNLOAD_GPG_PBKEY"
     gpg --verify "$RASPBIAN_DOWNLOAD_SIG" "$RASPBIAN_DOWNLOADED_IMAGE"
     echo -e "\e[0;32m[INFO]\e[1;37m Decompress image file to base...\e[0m"
-    xz -dk "$RASPBIAN_DOWNLOADED_IMAGE"
+    xz -dfk "$RASPBIAN_DOWNLOADED_IMAGE"
     cp "$RASPBIAN_DECOMPRESSED_IMAGE" "$BASE_IMAGE"
 }
 
@@ -125,7 +125,7 @@ do_dect_download_exists() {
                     return 0
                 fi
                 echo -e "\e[0;32m[INFO]\e[1;37m Decompress image file to base...\e[0m"
-                xz -dk "$RASPBIAN_DOWNLOADED_IMAGE"
+                xz -dfk "$RASPBIAN_DOWNLOADED_IMAGE"
                 cp "$RASPBIAN_DECOMPRESSED_IMAGE" "$BASE_IMAGE"
                 return 0
             fi
@@ -148,7 +148,7 @@ do_dect_download_exists() {
             return 0
         fi
         echo -e "\e[0;32m[INFO]\e[1;37m Decompress image file to base...\e[0m"
-        xz -dk "$RASPBIAN_DOWNLOADED_IMAGE"
+        xz -dfk "$RASPBIAN_DOWNLOADED_IMAGE"
         cp "$RASPBIAN_DECOMPRESSED_IMAGE" "$BASE_IMAGE"
         return 0
     else
