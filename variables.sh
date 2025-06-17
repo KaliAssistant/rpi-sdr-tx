@@ -11,6 +11,7 @@ rndis_ipv4_gateway=${rndis_ipv4_gateway:-"172.16.48.254"}
 rndis_ipv4_dns=${rndis_ipv4_dns:-"1.1.1.1"}
 
 mirror=${mirror:-"http://raspbian.raspberrypi.com/raspbian"}
+restore_mirror=${restore_mirror:-"http://raspbian.raspberrypi.com/raspbian"}
 suite=${suite:-"bookworm"}
 components="main,contrib,non-free,rpi"
 

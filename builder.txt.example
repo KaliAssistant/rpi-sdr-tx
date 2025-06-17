@@ -11,8 +11,11 @@ rndis_ipv4_address="172.16.48.1/24"
 rndis_ipv4_gateway="172.16.48.254"
 rndis_ipv4_dns="1.1.1.1"
 
-# If you have your own preferred mirrors, set them here.
+# If you have your own preferred mirrors, set them here.(when build)
 #mirror="http://raspbian.raspberrypi.com/raspbian"
+
+# If you have your own preferred mirrors, set them here.(after build)
+#restore_mirror="http://raspbian.raspberrypi.com/raspbian"
 
 # Dont change this (stable)
 #suite="bookworm"

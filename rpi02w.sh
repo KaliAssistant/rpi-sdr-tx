@@ -297,6 +297,13 @@ EOF
     echo -e "\e[0;32m[INFO]\e[1;37m Remove chroot Install script...\e[0m"
     chroot "$work_dir" /bin/bash -c "/bin/rm -f /opt/install_rpisdrtx.sh /opt/install_rpisdrtx_var.sh"
 
+    echo -e "\e[0;32m[INFO]\e[1;37m Restore apt source...\e[0m"
+    cat <<EOF >"${work_dir}/etc/apt/sources.list"
+deb [ arch=armhf ] ${restore_mirror} ${suite} ${components//,/ }
+# Uncomment line below then 'apt-get update' to enable 'apt-get source'
+#deb-src ${restore_mirror} ${suite} ${components//,/ }
+EOF
+
     echo -e "\e[0;32m[INFO]\e[1;37m Build success! cleanup and umount img file...\e[0m"
 
     umount "$work_dir"/{dev/pts,dev,sys,proc,boot/firmware,}
