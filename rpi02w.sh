@@ -2,7 +2,7 @@
 
 set -eE
 
-RPI_SDR_TX_VERSION="v1.0.0-beta1"
+RPI_SDR_TX_VERSION="v1.0.0"
 REPO_PWD=`pwd`
 work_dir="${REPO_PWD}/base/working"
 
@@ -98,8 +98,6 @@ do_init_cleanup() {
     [ ! -n "$trash_chksum_files" ] || rm -f $trash_chksum_files
     [ ! -n "$trash_xz_files" ] || rm -f $trash_xz_files
     [ ! -n "$trash_img_files" ] || rm -f $trash_img_files
-    
-    [ ! -f "$RASPBIAN_DOWNLOADED_IMAGE" ] || rm -f $RASPBIAN_DOWNLOADED_IMAGE
 }
 
 
@@ -114,7 +112,6 @@ do_read_builder_txt() {
     source "${REPO_PWD}/variables.sh"
 }
 
-
 do_download_raspbian() {
     echo -e "\e[0;32m[INFO]\e[1;37m Download raspbian image\e[0m"
     wget -O - "$RASPBIAN_DOWNLOAD_URL" > "${REPO_PWD}/downloads/raspios-bookworm-armhf-lite.img.xz"
@@ -124,6 +121,30 @@ do_download_raspbian() {
     echo -e "\e[0;32m[INFO]\e[1;37m Decompress image file to base...\e[0m"
     xz -dk "$RASPBIAN_DOWNLOADED_IMAGE"
     mv "${REPO_PWD}/downloads/raspios-bookworm-armhf-lite.img" "${REPO_PWD}/base/base_image.img"
+}
+
+do_dect_download_exists() {
+    echo -e "\e[0;32m[INFO]\e[1;37m Check downloads folder...\e[0m"
+    if [ -f "$RASPBIAN_DOWNLOADED_IMAGE" ]; then
+        echo -e "\e[0;32m[INFO]\e[1;37m Found Downloaded image!\e[0m"
+        echo -e "\e[0;32m[INFO]\e[1;37m Verify Image...\e[0m"
+        gpg --import "$RASPBIAN_DOWNLOAD_GPG_PBKEY"
+        gpg --verify "$RASPBIAN_DOWNLOAD_SIG" "$RASPBIAN_DOWNLOADED_IMAGE" || EXIST_IMAGE_GPG_ERROR="ERROR"
+        if [ -n "$EXIST_IMAGE_GPG_ERROR" ]; then
+              echo -e "\e[1;33m[WARN]\e[0;33m GPG VERIFY RETURN NON-ZERO EXIT-CODE ! REDOWNLOAD THE IMAGE...\e[0m"
+              do_download_raspbian
+          return 0
+        fi
+        echo -e "\e[0;32m[INFO]\e[1;37m Decompress image file to base...\e[0m"
+        xz -dk "$RASPBIAN_DOWNLOADED_IMAGE"
+        mv "${REPO_PWD}/downloads/raspios-bookworm-armhf-lite.img" "${REPO_PWD}/base/base_image.img"
+        return 0
+    else
+        echo -e "\e[0;32m[INFO]\e[1;37m Image not found...\e[0m"
+        do_download_raspbian
+        return 0
+    fi
+
 }
 
 do_resize_img_file() {
@@ -356,15 +377,13 @@ do_done_cleanup() {
     [ ! -n "$trash_chksum_files" ] || rm -f $trash_chksum_files
     [ ! -n "$trash_xz_files" ] || rm -f $trash_xz_files
     [ ! -n "$trash_img_files" ] || rm -f $trash_img_files
-
-    [ ! -f "$RASPBIAN_DOWNLOADED_IMAGE" ] || rm -f $RASPBIAN_DOWNLOADED_IMAGE
 }
 
 do_init
 do_init_cleanup
 do_apt_update
 do_read_builder_txt
-do_download_raspbian
+do_dect_download_exists
 do_resize_img_file
 do_chroot_to_working
 do_minsize_imgfile
