@@ -119,7 +119,7 @@ If you're soldering an SMA connector directly to the **edge of the Pi**, take no
 
 <img src="./doc/CASE_3.jpeg" width="400"> <img src="./doc/CASE_4.jpeg" width="400">
 
-### Cirucit
+### Circuit
 ![](./doc/RPI-SDR-TX.svg)
 
 ---
