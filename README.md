@@ -93,20 +93,21 @@ For now, here’s a preview of the completed assembly:
 
 ---
 
->**SMA Connector – Why Use UV Solder Mask Ink?**
-><p align="center">
->    <img alt="bottom" src="./doc/ASSEMBLY-SMA-AREA-BOTTOM.jpg" width="48%">
->    <img alt="top" src="./doc/ASSEMBLY-SMA-AREA-TOP.jpg" width="48%">
-></p>
+> [!NOTE]
+> **SMA Connector – Why Use UV Solder Mask Ink?**
+> <p align="center">
+>     <img alt="bottom" src="./doc/ASSEMBLY-SMA-AREA-BOTTOM.jpg" width="48%">
+>     <img alt="top" src="./doc/ASSEMBLY-SMA-AREA-TOP.jpg" width="48%">
+> </p>
 >
->The RF output of `rpi-sdr-tx` is transmitted through **GPIO4**.  
+> The RF output of `rpi-sdr-tx` is transmitted through **GPIO4**.  
 If you're soldering an SMA connector directly to the **edge of the Pi**, take note:
 >
->- **GPIO4 is surrounded by 5V, 3.3V, and GND pins.**
->- Accidental bridging during soldering could damage the Pi.
->- Apply **UV solder mask ink** around these power pins to **insulate and protect** adjacent pads before soldering.
+> - **GPIO4 is surrounded by 5V, 3.3V, and GND pins.**
+> - Accidental bridging during soldering could damage the Pi.
+> - Apply **UV solder mask ink** around these power pins to **insulate and protect** adjacent pads before soldering.
 >
->This precaution ensures safe RF output without risking a short circuit.
+> This precaution ensures safe RF output without risking a short circuit.
 
 ---
 
@@ -126,9 +127,9 @@ If you're soldering an SMA connector directly to the **edge of the Pi**, take no
 ## 📥 Install
 
 1. Flash **Raspberry Pi OS (Bookworm Lite, 32-bit armhf)** to your SD card.  
-   > [!NOTE]
-   > Only 32-bit is supported by `rpitx`.  
-   > Be sure to add your **Wi-Fi configuration** before first boot, as we will SSH into the Pi.
+> [!NOTE]
+> Only 32-bit is supported by `rpitx`.  
+> Be sure to add your **Wi-Fi configuration** before first boot, as we will SSH into the Pi.
 
    ![](./doc/USE_RPIOS_ARMHF_LITE.png)
 
