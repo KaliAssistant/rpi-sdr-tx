@@ -46,10 +46,12 @@ This repository includes:
 | **2.4G WiFi/BT FPC Antenna** *(optional)* | [Amazon](https://a.co/d/bWsmjda) | <img src="./doc/ITEM_FPC_WIFI_ANTENNA.jpg" width="200"/> | 1 |
 
 > [!NOTE]
-> #### **I. – USB-C PCB Panel Mount**  
+> #### **I. – USB-C PCB Panel Mount**
 > <img align="right" src="./doc/NOTE-USB-C-PCB-PANEL-MOUNT.png" alt="image" width="40%">
+>
 > The "panel mount" is actually a custom **FR-4 PCB** with a USB-C female port cutout. Most Amazon listings won't match the precise size (⌀16 mm between mounting holes).  
 > If you're lucky, you'll get a close match — otherwise, it's best to use the **Gerber files** provided in this repository. You can upload them to a PCB manufacturer like **JLCPCB** with the following settings:
+>
 > - Thickness: `1.6 mm`
 > - Material: `FR-4`
 > - Copper: `1oz`
