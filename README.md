@@ -22,7 +22,7 @@ This repository includes:
   <img src="./doc/USE_BPF_WARNING.png" alt="Use BPF Warning" />
 </p>
 
-> ⚠️ **Warning**  
+> [!WARNING]
 > Do **not** transmit RF signals through an antenna **without a Band-Pass Filter (BPF)**!  
 > Unfiltered signals may cause **harmful interference** and violate regulatory limits.
 
@@ -45,24 +45,25 @@ This repository includes:
 | **IPEX 1 SMT Connector** *(optional)* | [Amazon](https://a.co/d/4n84BrI) | <img src="./doc/ITEM_IPEXv1_CONNECTOR.jpg" width="200"/> | 1 |
 | **2.4G WiFi/BT FPC Antenna** *(optional)* | [Amazon](https://a.co/d/bWsmjda) | <img src="./doc/ITEM_FPC_WIFI_ANTENNA.jpg" width="200"/> | 1 |
 
-
->#### 📝 Notes
->**Note I – USB-C PCB Panel Mount**  
-><img align="right" src="./doc/NOTE-USB-C-PCB-PANEL-MOUNT.png" alt="image" width="40%">
->The "panel mount" is actually a custom **FR-4 PCB** with a USB-C female port cutout. Most Amazon listings won't match the precise size (⌀16 mm between mounting holes).  
-If you're lucky, you'll get a close match — otherwise, it's best to use the **Gerber files** provided in this repository. You can upload them to a PCB manufacturer like **JLCPCB** with the following settings:
->- Thickness: `1.6 mm`
->- Material: `FR-4`
->- Copper: `1oz`
->- Solder mask color: your choice
+> [!NOTE]
+> #### **I. – USB-C PCB Panel Mount**
+> <img align="right" src="./doc/NOTE-USB-C-PCB-PANEL-MOUNT.png" alt="image" width="40%">
 >
->Then, purchase a standard USB-C **female breakout board** and **solder it edge-mounted** to the PCB. This gives you a clean and sturdy "USB-C Female PCB Panel Mount."
+> The "panel mount" is actually a custom **FR-4 PCB** with a USB-C female port cutout. Most Amazon listings won't match the precise size (⌀16 mm between mounting holes).  
+> If you're lucky, you'll get a close match — otherwise, it's best to use the **Gerber files** provided in this repository. You can upload them to a PCB manufacturer like **JLCPCB** with the following settings:
+>
+> - Thickness: `1.6 mm`
+> - Material: `FR-4`
+> - Copper: `1oz`
+> - Solder mask color: your choice
+>
+> Then, purchase a standard USB-C **female breakout board** and **solder it edge-mounted** to the PCB. This gives you a clean and sturdy "USB-C Female PCB Panel Mount."
 >
 >
->**Note II – Heat-Set Inserts for 3D-Printed Case**  
-If you’re using the 3D-printed case STL files provided in this repository, **print them with FDM**, **not SLA**!  
-SLA resin prints are **too brittle** for heat-set inserts and may crack or warp under pressure or heat.  
-Use **FDM printers with standard PLA, PETG, or ABS** for reliable mechanical strength and heat resistance when inserting the M2 thread inserts.
+> #### **II. – Heat-Set Inserts for 3D-Printed Case**  
+> If you’re using the 3D-printed case STL files provided in this repository, **print them with FDM**, **not SLA**!  
+> SLA resin prints are **too brittle** for heat-set inserts and may crack or warp under pressure or heat.  
+> Use **FDM printers with standard PLA, PETG, or ABS** for reliable mechanical strength and heat resistance when inserting the M2 thread inserts.
 
 ### 🔧 Tools Required
 
@@ -94,20 +95,21 @@ For now, here’s a preview of the completed assembly:
 
 ---
 
->**SMA Connector – Why Use UV Solder Mask Ink?**
-><p align="center">
->    <img alt="bottom" src="./doc/ASSEMBLY-SMA-AREA-BOTTOM.jpg" width="48%">
->    <img alt="top" src="./doc/ASSEMBLY-SMA-AREA-TOP.jpg" width="48%">
-></p>
+> [!NOTE]
+> **SMA Connector – Why Use UV Solder Mask Ink?**
+> <p align="center">
+>     <img alt="bottom" src="./doc/ASSEMBLY-SMA-AREA-BOTTOM.jpg" width="48%">
+>     <img alt="top" src="./doc/ASSEMBLY-SMA-AREA-TOP.jpg" width="48%">
+> </p>
 >
->The RF output of `rpi-sdr-tx` is transmitted through **GPIO4**.  
+> The RF output of `rpi-sdr-tx` is transmitted through **GPIO4**.  
 If you're soldering an SMA connector directly to the **edge of the Pi**, take note:
 >
->- **GPIO4 is surrounded by 5V, 3.3V, and GND pins.**
->- Accidental bridging during soldering could damage the Pi.
->- Apply **UV solder mask ink** around these power pins to **insulate and protect** adjacent pads before soldering.
+> - **GPIO4 is surrounded by 5V, 3.3V, and GND pins.**
+> - Accidental bridging during soldering could damage the Pi.
+> - Apply **UV solder mask ink** around these power pins to **insulate and protect** adjacent pads before soldering.
 >
->This precaution ensures safe RF output without risking a short circuit.
+> This precaution ensures safe RF output without risking a short circuit.
 
 ---
 
@@ -127,8 +129,9 @@ If you're soldering an SMA connector directly to the **edge of the Pi**, take no
 ## 📥 Install
 
 1. Flash **Raspberry Pi OS (Bookworm Lite, 32-bit armhf)** to your SD card.  
-   > ⚠️ Only 32-bit is supported by `rpitx`.  
-   Be sure to add your **Wi-Fi configuration** before first boot, as we will SSH into the Pi.
+> [!NOTE]
+> Only 32-bit is supported by `rpitx`.  
+> Be sure to add your **Wi-Fi configuration** before first boot, as we will SSH into the Pi.
 
    ![](./doc/USE_RPIOS_ARMHF_LITE.png)
 
