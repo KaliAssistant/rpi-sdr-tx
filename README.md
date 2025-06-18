@@ -86,9 +86,9 @@ For now, here’s a preview of the completed assembly:
 
 **SMA Connector**
 <p align="center">
-    <img align="left" src="./doc/ASSEMBLY-SMA-BOTTOM.jpg" width="57%">
-    <img src="./doc/ASSEMBLY-SMA-TOP.jpg" width="40%" hspace="5">
-    <img src="./doc/ASSEMBLY-SMA-UV_1.jpg" width="40%" hspace="5">
+    <img align="left" src="./doc/ASSEMBLY-SMA-BOTTOM.jpg" width="50%">
+    <img src="./doc/ASSEMBLY-SMA-TOP.jpg" width="35%" hspace="5">
+    <img src="./doc/ASSEMBLY-SMA-UV_1.jpg" width="35%" hspace="5">
 
 </p>
 
@@ -227,6 +227,7 @@ https://github.com/user-attachments/assets/0cf1e91f-3009-4e01-9d99-45d8bbc2cdbd
 [![FULL VIDEO](https://img.youtube.com/vi/e7_sDhkGPY4/0.jpg)](https://www.youtube.com/watch?v=e7_sDhkGPY4)
 
 Demo:  
+
 https://github.com/user-attachments/assets/4219b572-6db6-4b58-8dff-92a529460f64
 
 ---
